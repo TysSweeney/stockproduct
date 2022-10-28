@@ -12,7 +12,7 @@ import time
 
 # Establish SQL connection
 # Connect to bit.io
-b = bitdotio.bitdotio("v2_3udY7_v5FpSw3iNsG78ssnnZwefcH")
+b = bitdotio.bitdotio(#password)
 
 # Connect to the database
 conn = b.get_connection("tyssweeney/stockproduct")
