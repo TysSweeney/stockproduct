@@ -23,7 +23,7 @@ files = [
     ]
 
 # Initiate header list for CSV files
-headerlist = ["DATE","COMPANY","PRODUCT","TICKER","PRODUCT PRICE","STOCK PRICE"]
+headerlist = ["DATE","COMPANY","PRODUCT","TICKER","PRODUCT PRICE","SHARE PRICE"]
 
 # Initiate empty data passthrough variable
 data = ""
