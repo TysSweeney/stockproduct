@@ -23,7 +23,7 @@ files = [
     ]
 
 # Initiate header list for CSV files
-headerlist = ["DATE","COMPANY","PRODUCT","TICKER","PRODUCT PRICE","SHARE PRICE"]
+headerlist = ["DATE","COMPANY","PRODUCT","TICKER","PRODUCT PRICE","SHARE PRICE","PRODUCT % CHANGE","SHARE % CHANGE"]
 
 # Initiate empty data passthrough variable
 data = ""
@@ -37,7 +37,7 @@ for file in files:
     # Write CSV update in PythonAnywhere
     with open(file[2], 'w', newline='',encoding='utf-8') as f:
         fwriter = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        cursor.execute("SELECT pp.date::date, company_name, product_name, ticker, pp.price, s.price FROM product_prices as pp INNER JOIN products as p ON pp.product_id = p.product_id INNER JOIN companies as c ON c.company_id = p.company_id INNER JOIN stocks as s ON c.company_id = s.company_id AND s.date::date = pp.date::date WHERE ticker =" +file[0]+" ORDER BY pp.date")
+        cursor.execute("SELECT pp.date::date, company_name, product_name, ticker, pp.price, s.price, pp.pct_change, s.pct_change FROM product_prices as pp INNER JOIN products as p ON pp.product_id = p.product_id INNER JOIN companies as c ON c.company_id = p.company_id INNER JOIN stocks as s ON c.company_id = s.company_id AND s.date::date = pp.date::date WHERE ticker =" +file[0]+" ORDER BY pp.date")
         table = cursor.fetchall()
         fwriter.writerow(headerlist)
         for row in table:
