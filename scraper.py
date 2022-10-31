@@ -1,14 +1,9 @@
-# NOTE
-# Paid API keys have been removed from this file to prevent accidental overuse.
-
 import requests
 import json
-import psycopg2 as pg
 import bitdotio
 from pprint import pprint
 import yfinance as yf
 from datetime import date
-import time
 
 # Establish SQL connection
 # Connect to bit.io
@@ -47,12 +42,12 @@ def decimal_conversion(priceAmazon):
 def get_price(asin):
 
     # Set URL and intake Amazon ASIN
-    url = #URL
+    url = "https://amazon-price1.p.rapidapi.com/priceReport"
     querystring = {"asin":asin,"marketplace":"US"}
 
     headers = {
-    	"X-RapidAPI-Key": #KEY,
-    	"X-RapidAPI-Host": #HOST
+    	"X-RapidAPI-Key": #key,
+    	"X-RapidAPI-Host": #host
     }
 
     # Make the API request and parse as JSON
@@ -104,10 +99,16 @@ def load_price():
 
         # Get the price for the current product
         price = decimal_conversion(get_price(product_dict[product_id]))
+
+        cursor.execute("SELECT price FROM product_prices WHERE product_id = " + pid +" ORDER BY date desc LIMIT 1")
+        prod_last_price = float(cursor.fetchall()[0][0])
+
+        pct_change = str(round((price - prod_last_price) / prod_last_price,4))
+
         sprice = str(price)
         cursor.execute('''
-                INSERT INTO product_prices(date,price,product_id)
-                VALUES ( NOW(),'''+sprice+","+pid+");")
+                INSERT INTO product_prices(date,price,product_id,pct_change)
+                VALUES ( NOW(),'''+sprice+","+pid+","+pct_change+");")
 
     conn.commit()
     #print("Completed.")
@@ -165,10 +166,17 @@ def load_stock():
 
         # Get the price for the current product
         price = get_stock_price(comp_dict[c_id])
+
+        cursor.execute("SELECT price FROM stocks WHERE company_id = " + cid +" ORDER BY date desc LIMIT 1")
+        stock_last_price = float(cursor.fetchall()[0][0])
+
+        pct_change = str(round((price - stock_last_price) / stock_last_price,4))
+
         sprice = str(price)
+
         cursor.execute('''
-                INSERT INTO stocks(date,price,company_id)
-                VALUES ( NOW(),'''+sprice+","+cid+");")
+                INSERT INTO stocks(date,price,company_id,pct_change)
+                VALUES ( NOW(),'''+sprice+","+cid+","+pct_change+");")
 
     conn.commit()
     #print("Completed.")
