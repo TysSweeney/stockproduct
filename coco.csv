@@ -1,4 +1,5 @@
-DATE,COMPANY,PRODUCT,TICKER,PRODUCT PRICE,SHARE PRICE
-2022-10-11,Vita Coco Company,Coconut Water,COCO,13.76,12.15
-2022-10-16,Vita Coco Company,Coconut Water,COCO,13.76,11.33
-2022-10-23,Vita Coco Company,Coconut Water,COCO,13.76,10.7
+DATE,COMPANY,PRODUCT,TICKER,PRODUCT PRICE,SHARE PRICE,PRODUCT % CHANGE,SHARE % CHANGE
+2022-10-11,Vita Coco Company,Coconut Water,COCO,13.76,12.15,,,
+2022-10-16,Vita Coco Company,Coconut Water,COCO,13.76,11.33,,,
+2022-10-23,Vita Coco Company,Coconut Water,COCO,13.76,10.7,,,
+2022-10-31,Vita Coco Company,Coconut Water,COCO,13.76,10.69,0.0,-0.001
