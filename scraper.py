@@ -184,7 +184,7 @@ def load_stock():
 
 # Run all the functions and load new prices to the database
 
-monthday = ["1","8","16","23"]
+monthday = ["01","08","16","23"]
 t = date.today()
 today =t.strftime("%d")
 
@@ -194,5 +194,4 @@ if today in monthday:
     load_stock()
 
 else:
-    # Pass and end on days that are not the 7th of the month
     pass
